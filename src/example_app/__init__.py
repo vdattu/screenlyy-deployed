@@ -86,17 +86,17 @@ def index():
 
 
 def inference_thread(data,npimg):
-    w = Watcher(0)
-    t = TimeLimit()
+    #w = Watcher(0)
+    #t = TimeLimit()
     od = eval(data)
     #print(od,type(od))
     od_list = od['objDetectionList']
     camera_id = od['cameraId']
     print(camera_id)
     count = len(od_list)
-    watch = w.variable = count      
-    print(watch,type(watch))
-    if count >= 1 and watch:
+    #watch = w.variable > count      
+    #if count >= 1 and watch:
+    if count >= 1:
         try:
             cams = get_cam(camera_id)
             device_id = cams[1]
@@ -165,18 +165,18 @@ def inference_thread(data,npimg):
             thread_list=[thread.name for thread in threading.enumerate()]
             print(thread_list,"list")
             #if "running" in thread_list:
-            print("t",t.check_value())
-            if len(thread_list)>=3 and "main_t" in thread_list:
+            #print("t",t.check_value())
+            if len(thread_list)>=2 and "main_t" in thread_list:
                 print(thread_list,"pass")
             else:
-                if t.check_value() > duration:
-                    cc = threading.Thread(target = switch_asset,args = [asset,device_data[0]])
-                    fifo_queue.put(cc)
-                    cc.start()
-                    print(thread_list,"run")
-                    time.sleep(duration+1)
-                    t = TimeLimit(int(time.time()))
-            w.check_value(count)
+                #if t.check_value() > duration:
+                cc = threading.Thread(target = switch_asset,args = [asset,device_data[0]])
+                fifo_queue.put(cc)
+                cc.start()
+                print(thread_list,"run")
+                time.sleep(duration+1)
+                #t = TimeLimit(int(time.time()))
+            #w.check_value(count)
             print(thread_list,"done")
             # time.sleep(duration+1)
 

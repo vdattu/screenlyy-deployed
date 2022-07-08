@@ -171,7 +171,7 @@ def inference_thread(data,npimg):
             thread_list=[thread.name for thread in threading.enumerate()]
             print(thread_list,"list")
             #if "running" in thread_list:
-            print("t",t.check_value())
+            #print("t",t.check_value())
             if len(thread_list)>=3 and "main_t" in thread_list:
                 print(thread_list,"pass")
             else:

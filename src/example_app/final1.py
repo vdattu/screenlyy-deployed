@@ -79,7 +79,6 @@ def index():
         npimg = np.fromfile(request.files['imagedata'], np.uint8)
         a = threading.Thread(target=inference_thread, args=[data,npimg])
         a.name = "main_t"
-        a.setDaemon(True)
         fifo_queue.put(a)
         a.start()
         return "200"
@@ -108,10 +107,9 @@ def inference_thread(data,npimg):
             device_data = get_device(device_id)
             latlng = get_latlng(device_data[2])
             #print(od_list)
-            
+            img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
             if eval(device_data[-2]):
                 try:
-                    img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
                     agd,it = sendtoserver(img)
                     #pin('on',[21,26],device_data[-1])
                     #print(agd,type(agd))
@@ -172,40 +170,19 @@ def inference_thread(data,npimg):
 
             thread_list=[thread.name for thread in threading.enumerate()]
             print(thread_list,"list")
-            tm = thread_list.count("main_t")
-            if  tm >= 2:
-                def countdown(t):
-                    while t:
-                        mins, secs = divmod(t, 60)
-                        timer = '{:02d}:{:02d}'.format(mins, secs)
-                        print(timer, end="\r")
-                        time.sleep(1)
-                        t -= 1
-                    cc = threading.Thread(target = switch_asset,args = [asset,device_data[0],duration])
-                    #thread_list.append("running")
-                    fifo_queue.put(cc)
-                    cc.name="running"
-                    cc.start()
-                    print(thread_list,"run_passed")
-
-                if 2<=tm<=3:
-                    countdown(duration)
-                else:
-                    print("passing")
-                    pass
-
-
+            #if "running" in thread_list:
+            #print("t",t.check_value())
+            if len(thread_list)>=3 and "main_t" in thread_list:
+                print(thread_list,"pass")
+                
 
             else:
                 #if t.check_value() > duration:
-                cc = threading.Thread(target = switch_asset,args = [asset,device_data[0],duration])
-                #thread_list.append("running")
+                cc = threading.Thread(target = switch_asset,args = [asset,device_data[0]])
                 fifo_queue.put(cc)
-                cc.name="running"
                 cc.start()
                 print(thread_list,"run")
-                #switch_asset(asset,device_data[0])
-                #time.sleep(duration+1)
+                time.sleep(duration+1)
                 #t = TimeLimit(int(time.time()))
             #w.check_value(count)
             print(thread_list,"done")
@@ -218,5 +195,4 @@ def inference_thread(data,npimg):
             print(e)
     else:
         print("no object detected")
-
 

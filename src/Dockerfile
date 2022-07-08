@@ -40,5 +40,5 @@ COPY example_app /opt/app/
 # Copy app to container (with privileges to non-root user)
 COPY --chown=$USER:$GROUP . .
 
-CMD ["gunicorn","--bind","0.0.0.0:5000","--workers","10","example_app:app"]
+CMD ["gunicorn","--bind","0.0.0.0:5000","--workers","1","example_app:app"]
 # Gunicorn is not run from the docker-compose file

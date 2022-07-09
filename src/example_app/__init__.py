@@ -174,28 +174,25 @@ def inference_thread(data,npimg):
             print(thread_list,"list")
             tm = thread_list.count("main_t")
             if  tm >= 2:
-                def countdown(t):
-                    while t:
-                        mins, secs = divmod(t, 60)
-                        timer = '{:02d}:{:02d}'.format(mins, secs)
-                        print(timer, end="\r")
-                        time.sleep(1)
-                        t -= 1
-                    cc = threading.Thread(target = switch_asset,args = [asset,device_data[0],duration])
-                    #thread_list.append("running")
-                    fifo_queue.put(cc)
-                    cc.name="running"
-                    cc.start()
-                    print(thread_list,"run_passed")
+                # def countdown(t):
+                #     while t:
+                #         mins, secs = divmod(t, 60)
+                #         timer = '{:02d}:{:02d}'.format(mins, secs)
+                #         print(timer, end="\r")
+                #         time.sleep(1)
+                #         t -= 1
+                #     cc = threading.Thread(target = switch_asset,args = [asset,device_data[0],duration])
+                #     #thread_list.append("running")
+                #     fifo_queue.put(cc)
+                #     cc.name="running"
+                #     cc.start()
+                #     print(thread_list,"run_passed")
 
-                if 2<=tm<=3:
-                    countdown(duration)
-                else:
-                    print("passing")
-                    pass
-
-
-
+                # if 2<=tm<=3:
+                #     countdown(duration)
+                # else:
+                print("passing")
+                pass
             else:
                 #if t.check_value() > duration:
                 cc = threading.Thread(target = switch_asset,args = [asset,device_data[0],duration])

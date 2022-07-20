@@ -13,7 +13,7 @@ rds_db = os.getenv('RDS_DB')
 
 conn = pymysql.connect(host= rds_host,port = 3306,user = rds_user, password = rds_pass,db = rds_db)
 cur=conn.cursor()
-
+cursorclass=pymysql.cursors.DictCursor
 # def insert_details(mimetype,name,count,time):
 #     cur.execute("INSERT INTO firstlast(mimetype,name,count,time) VALUES (%s,%s,%s,%s)", (mimetype,name,count,time))
 #     conn.commit()

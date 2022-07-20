@@ -41,4 +41,5 @@ COPY example_app /opt/app/
 COPY --chown=$USER:$GROUP . .
 
 CMD ["gunicorn","--bind","0.0.0.0:5000","--workers","1","example_app:app"]
-# Gunicorn is not run from the docker-compose file
+#CMD ["gunicorn","--bind","0.0.0.0:5001","--workers","1","example_app:app"]
+# Gunicorn is not run from the docker-compose file "--threads","2"

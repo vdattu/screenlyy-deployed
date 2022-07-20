@@ -72,13 +72,14 @@ def sample():
 
 
     
-@app.route('/ads', methods = ['GET','POST'])
-def index():
+@app.route('/<string:camId>', methods = ['GET','POST'])
+def index(camId):
     if request.method == 'POST':
         data = request.form.get('metadata', '')
         npimg = np.fromfile(request.files['imagedata'], np.uint8)
         #delay = duration
-        a = threading.Thread(target=join, args=[data,npimg])
+        a = threading.Thread(target=join, args=[data,npimg,camId])
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         a.name = "main_t"
         a.setDaemon(True)
         fifo_queue.put(a)
@@ -87,18 +88,18 @@ def index():
     else:
         return "401"
 
-def join(data,npimg):
+def join(data,npimg,camId):
+    print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
     vb = []
     thread_list=[thread.name for thread in threading.enumerate()]
     vb.append(thread_list)
     #print(type(thread_list))
     print(vb,"list")
     #if vb[0][1] != "main_t":
-    #if len(vb[0])<=2:
-    if vb[0].count("main_t") <=1 :
+    if vb[0].count("main_t")==1:
         print("im here.................................................................")
         #s = time.time()
-        ds = threading.Thread(target=inference_thread, args=[data,npimg])
+        ds = threading.Thread(target=inference_thread, args=[data,npimg,camId])
         #ds.name = "main_thrd"
         ds.setDaemon(True)
         fifo_queue.put(ds)
@@ -120,12 +121,14 @@ def join(data,npimg):
 
 
 main_d={}
-def inference_thread(data,npimg):
+def inference_thread(data,npimg,camId):
+    print("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc")
     t = TimeLimit()
     od = eval(data)
     #print(od,type(od))
     od_list = od['objDetectionList']
-    camera_id = od['cameraId']
+    camera_id = camId
+    #camera_id = od['cameraId']
     print(camera_id)
     count = len(od_list)
     print(count)

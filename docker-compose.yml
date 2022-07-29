@@ -34,103 +34,25 @@ services:
       - FLASK_ENV=${FLASK_ENV}
       - TZ=Asia/Kolkata
     ports:
-      - 5000:5000
+      - 5005:5005
+  # application1:
+  #   build: ./${APP_FOLDER}
+  #   build: ./${APP_FOLDER}
+  #   restart: unless-stopped
+  #   #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
+  #   environment:
+  #     - FLASK_ENV=${FLASK_ENV}
+  #     - TZ=Asia/Kolkata
+  #   ports:
+  #     - 5001:5005
 
-  application1:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5001:5000
-
-  application2:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5002:5000
-
-  application3:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5003:5000
-
-  application4:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5004:5000
-
-  application5:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5005:5000
-
-  application6:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5006:5000
-
-  application7:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5007:5000
-
-  application8:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5008:5000
-
-  application9:
-    build: ./${APP_FOLDER}
-    build: ./${APP_FOLDER}
-    restart: unless-stopped
-    #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
-    environment:
-      - FLASK_ENV=${FLASK_ENV}
-      - TZ=Asia/Kolkata
-    ports:
-      - 5009:5000
+  # application2:
+  #   build: ./${APP_FOLDER}
+  #   build: ./${APP_FOLDER}
+  #   restart: unless-stopped
+  #   #command: gunicorn --bind 0.0.0.0:5000 --workers 3 ${FLASK_APP}:app
+  #   environment:
+  #     - FLASK_ENV=${FLASK_ENV}
+  #     - TZ=Asia/Kolkata
+  #   ports:
+  #     - 5002:5005

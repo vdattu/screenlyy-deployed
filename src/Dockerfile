@@ -6,7 +6,7 @@ RUN apt update
 RUN apt-get install ffmpeg libsm6 libxext6 -y
 
 WORKDIR /opt/app
-RUN chmod 777 /app
+RUN chmod 777 /opt/app
 # App non-root user
 ENV GROUP=app
 ENV USER=flask

@@ -90,10 +90,16 @@ def join(od,camera_id,npimg):
     if vb[camera_id].count(camera_id) <=1:
         time.sleep(0.1)
         s = time.time()
-        with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-            future_to_url = executor.submit(inference_thread, od,npimg)
+        # with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        #     future_to_url = executor.submit(inference_thread, od,npimg)
+        ds = threading.Thread(target=inference_thread, args=[od,npimg])
+        ds.name = "select"
+        ds.setDaemon(True)
+        fifo_queue.put(ds)
+        ds.start()
         e = time.time()
         time.sleep(round(e-s,2))
+        ds.join()
         vb[camera_id].clear()
     else:
         pass
@@ -124,7 +130,6 @@ def inference_thread(od,npimg):
                 if len(device_data) == 0:
                     get_device_data()
                     device_data = get_device(device_id)
-                
                 latlng = get_latlng(device_data[2])
                 if len(latlng) == 0:
                     get_latlng_data()
@@ -226,5 +231,4 @@ def inference_thread(od,npimg):
 
 if __name__=="__main__":
     app.run(host='0.0.0.0')
-
 

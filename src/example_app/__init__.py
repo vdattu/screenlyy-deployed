@@ -63,7 +63,24 @@ def sendtoserver(frame):
 def sample():
     return "This application running"
 
+a={'Device_status':"status",'ip':"ip_adress"}
 
+@app.route('/<string:nm>',methods=['GET','POST'])
+def vb(nm):
+	#print(dir(request))
+	try:
+		if request.method=="POST":
+			ip=str(request.remote_addr)
+			a['Device_status']=nm
+			a['ip']=ip
+			time.sleep(5)
+			a['Device_status']="offline"
+			a['ip']="None"
+		else:
+			pass
+		return a
+	except:
+		return "not working"
     
 @app.route('/ads', methods = ['GET','POST'])
 def index():

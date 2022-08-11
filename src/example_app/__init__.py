@@ -70,28 +70,29 @@ def vb(nm):
 	#print(dir(request))
 	try:
 		if request.method=="POST":
-			if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-				try:
-					a['ip'] = request.environ['REMOTE_ADDR']
-				except Exception as e:
-					a['ip'] = "ip not found local"
-			else:
-				try:
-				    	a['ip'] = request.environ['HTTP_X_FORWARDED_FOR']
-				except Exception as e:
-				    	a['ip'] = "ip not found public"
-
 			a['Device_status']=nm
 			time.sleep(5)
 			a['Device_status']="offline"
 			a['ip']="None"
+# 			if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+# 				try:
+# 					a['ip'] = request.environ['REMOTE_ADDR']
+# 				except Exception as e:
+# 					a['ip'] = "ip not found local"
+# 			else:
+# 				try:
+# 				    	a['ip'] = request.environ['HTTP_X_FORWARDED_FOR']
+# 				except Exception as e:
+# 				    	a['ip'] = "ip not found public"
+
+
 
 		return "received"
 	except:
 		return "not working"
 @app.route('/pistatus')
 def datta():
-	return a
+	return a['Device_status']
 @app.route('/ads', methods = ['GET','POST'])
 def index():
     if request.method == 'POST':

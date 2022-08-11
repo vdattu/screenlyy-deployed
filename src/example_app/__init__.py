@@ -65,7 +65,7 @@ def sample():
 
 a={'Device_status':"status",'ip':"ip_adress"}
             
-@app.route('/<string:nm>',methods=['GET','POST'])
+@app.route('/<string:nm>',methods=['POST'])
 def vb(nm):
 	#print(dir(request))
 	try:
@@ -85,12 +85,13 @@ def vb(nm):
 			time.sleep(5)
 			a['Device_status']="offline"
 			a['ip']="None"
-		else:
-			pass
-		return a
+
+		return "received"
 	except:
 		return "not working"
-    
+@app.route('/pistatus')
+def datta():
+	return a
 @app.route('/ads', methods = ['GET','POST'])
 def index():
     if request.method == 'POST':

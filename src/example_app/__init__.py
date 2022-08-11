@@ -64,15 +64,24 @@ def sample():
     return "This application running"
 
 a={'Device_status':"status",'ip':"ip_adress"}
-
+            
 @app.route('/<string:nm>',methods=['GET','POST'])
 def vb(nm):
 	#print(dir(request))
 	try:
 		if request.method=="POST":
-			ip=str(request.remote_addr)
+			if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+				try:
+					a['ip'] = request.environ['REMOTE_ADDR']
+				except Exception as e:
+					a['ip'] = "ip not found local"
+			else:
+				try:
+				    	a['ip'] = request.environ['HTTP_X_FORWARDED_FOR']
+				except Exception as e:
+				    	a['ip'] = "ip not found public"
+
 			a['Device_status']=nm
-			a['ip']=ip
 			time.sleep(5)
 			a['Device_status']="offline"
 			a['ip']="None"
